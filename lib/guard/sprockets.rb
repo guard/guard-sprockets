@@ -16,6 +16,7 @@ module Guard
       @asset_paths = Array(@options[:asset_paths] || 'app/assets/javascripts')
       @destination = @options[:destination] || 'public/javascripts'
       @root_file   = Array(@options[:root_file])
+      @keep_paths = @options[:keep_paths] || false
 
       @sprockets = ::Sprockets::Environment.new
       @asset_paths.each { |p| @sprockets.append_path(p) }
@@ -60,7 +61,17 @@ module Guard
     def sprocketize(path)
       path = Pathname.new(path)
 
-      output_filename = without_preprocessor_extension(path.basename.to_s)
+      output_filename = if @keep_paths
+        # retain the relative directories of assets to the asset directory
+        parent_paths = @asset_paths.find_all { |p| path.to_s.start_with?(p) }.collect { |p| Pathname.new(p) }
+        relative_paths = parent_paths.collect { |p| path.relative_path_from(p) }
+        relative_path = relative_paths.min_by { |p| p.to_s.size }
+
+        without_preprocessor_extension(relative_path.to_s)
+      else
+        without_preprocessor_extension(path.basename.to_s)
+      end
+
       output_path = Pathname.new(File.join(@destination, output_filename))
 
       UI.info "Sprockets will compile #{output_filename}"
