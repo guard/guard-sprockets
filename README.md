@@ -5,7 +5,7 @@
 Sprockets guard automatically packages your JavaScript files together when your source files are saved.
 
 * Compatible with Sprockets 2.x (for Sprockets 1.x compatibility, please use Guard::Sprockets 0.1.4 or the `sprockets_1` branch).
-* Tested against Ruby 1.8.7, 1.9.2, 1.9.3, REE and the latest versions of JRuby & Rubinius.
+* Tested against Ruby 1.9.3, 2.0.0, Rubinius & JRuby (1.9 mode only).
 
 ## Install
 
@@ -42,7 +42,7 @@ Guard::Sprockets can be adapted to all kind of projects.
 ### Typical Rails 3 app (default generated Guardfile)
 
 ```ruby
-guard 'sprockets', :destination => 'public/javascripts', :asset_paths => ['/app/assets/javascripts'] do
+guard :sprockets, destination: 'public/javascripts', asset_paths: ['/app/assets/javascripts'] do
   watch 'app/assets/javascripts/application.js'
 end
 ```
@@ -52,17 +52,17 @@ Please read [Guard doc](https://github.com/guard/guard#readme) for more informat
 ## Options
 
 ```ruby
-:destination => 'public/js'          # change the destination folder in which the compiled assets are saved, default: 'public/javascripts'
-:asset_paths => 'app/js'             # add a directory (or on array of directories) to Sprockets' environment's load path, default: ['app/assets/javascripts']
-:asset_paths => ['app/js', 'lib/js'] # asset_paths can be a String or an Array
-:minify      => true                 # minify the JavaScript files content using Uglifier, default: false
+destination: 'public/js'          # change the destination folder in which the compiled assets are saved, default: 'public/javascripts'
+asset_paths: 'app/js'             # add a directory (or on array of directories) to Sprockets' environment's load path, default: ['app/assets/javascripts']
+asset_paths: ['app/js', 'lib/js'] # asset_paths can be a String or an Array
+minify: true                 # minify the JavaScript files content using Uglifier, default: false
                                      # be sure to add: "gem 'uglifier'" in your Gemfile
-:keep_paths  => true                 # retain the directory structure of an asset's path relative to the asset_path, default: false
+keep_paths: true                 # retain the directory structure of an asset's path relative to the asset_path, default: false
                                      # this prevents assets with the same basename, but placed different folders, from overwriting each other in the destination folder
                                      # e.x. with this option set to true: app/js/vendor/rails/turbolinks.js.coffee -> public/js/vendor/rails/turbolinks.js
                                      # and with this option set to false: app/js/vendor/rails/turbolinks.js.coffee -> public/js/turbolinks.js
-:root_file   => 'app/js/app.js'      # if set, only this file will be compiled, default: nil
-:root_file   => ['one.js', 'two.js'] # root_file can be a String or an Array
+root_file: 'app/js/app.js'      # if set, only this file will be compiled, default: nil
+root_file: ['one.js', 'two.js'] # root_file can be a String or an Array
 ```
 
 ## Development

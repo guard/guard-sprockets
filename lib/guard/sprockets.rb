@@ -1,22 +1,22 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 require 'sprockets'
 require 'execjs'
 
 module Guard
-  class Sprockets < Guard
+  class Sprockets < Plugin
 
     attr_reader :asset_paths, :destination, :root_file, :sprockets
 
-    def initialize(watchers = [], options = {})
-      super(watchers, options)
+    def initialize(options = {})
+      super
 
       @options     = options
       @asset_paths = Array(@options[:asset_paths] || 'app/assets/javascripts')
       @destination = @options[:destination] || 'public/javascripts'
       @root_file   = Array(@options[:root_file])
-      @keep_paths = @options[:keep_paths] || false
+      @keep_paths  = @options[:keep_paths] || false
 
       @sprockets = ::Sprockets::Environment.new
       @asset_paths.each { |p| @sprockets.append_path(p) }
@@ -43,7 +43,7 @@ module Guard
     end
 
     def run_all
-      run_on_changes []
+      run_on_changes([])
     end
 
     def run_on_changes(paths)
@@ -86,7 +86,7 @@ module Guard
     rescue ExecJS::ProgramError => ex
       UI.error "Sprockets failed compiling #{output_filename}"
       UI.error ex.message
-      Notifier.notify "Sprockets failed compiling #{output_filename}!", :priority => 2, :image => :failed
+      Notifier.notify "Sprockets failed compiling #{output_filename}!", priority: 2, image: :failed
 
       false
     end
