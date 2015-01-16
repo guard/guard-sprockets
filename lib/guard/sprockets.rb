@@ -1,5 +1,4 @@
-require 'guard'
-require 'guard/plugin'
+require 'guard/compat/plugin'
 
 require 'sprockets'
 require 'execjs'
@@ -27,30 +26,30 @@ module Guard
         begin
           require 'uglifier'
           @sprockets.js_compressor = ::Uglifier.new(js_minify_option.is_a?(Hash) ? js_minify_option : {})
-          UI.info 'Sprockets will compress JavaScript output.'
+          Compat::UI.info 'Sprockets will compress JavaScript output.'
         rescue LoadError => ex
-          UI.error "js_minify: Uglifier cannot be loaded. No JavaScript compression will be used.\nPlease include 'uglifier' in your Gemfile."
-          UI.debug ex.message
-        end        
+          Compat::UI.error "js_minify: Uglifier cannot be loaded. No JavaScript compression will be used.\nPlease include 'uglifier' in your Gemfile."
+          Compat::UI.debug ex.message
+        end
       end
-      
+
       if @options.delete(:css_minify)
         begin
           require 'yui/compressor'
           @sprockets.css_compressor = YUI::CssCompressor.new
-          UI.info 'Sprockets will compress CSS output.'
+          Compat::UI.info 'Sprockets will compress CSS output.'
         rescue LoadError => ex
-          UI.error "minify: yui-compressor cannot be loaded. No CSS compression will be used.\nPlease include 'yui-compressor' in your Gemfile."
-          UI.debug ex.message
-        end      
+          Compat::UI.error "minify: yui-compressor cannot be loaded. No CSS compression will be used.\nPlease include 'yui-compressor' in your Gemfile."
+          Compat::UI.debug ex.message
+        end
       end
-              
+
     end
 
     def start
-       UI.info 'Guard::Sprockets is ready and waiting for some file changes...'
-       UI.debug "Guard::Sprockets.asset_paths = #{@asset_paths.inspect}" unless @asset_paths.empty?
-       UI.debug "Guard::Sprockets.destination = #{@destination.inspect}"
+       Compat::UI.info 'Guard::Sprockets is ready and waiting for some file changes...'
+       Compat::UI.debug "Guard::Sprockets.asset_paths = #{@asset_paths.inspect}" unless @asset_paths.empty?
+       Compat::UI.debug "Guard::Sprockets.destination = #{@destination.inspect}"
 
        run_all
     end
@@ -87,19 +86,19 @@ module Guard
 
       output_path = Pathname.new(File.join(@destination, output_filename))
 
-      UI.info "Sprockets will compile #{output_filename}"
+      Compat::UI.info "Sprockets will compile #{output_filename}"
 
       FileUtils.mkdir_p(output_path.parent) unless output_path.parent.exist?
       output_path.open('w') do |f|
         f.write @sprockets[output_filename]
       end
 
-      UI.info "Sprockets compiled #{output_filename}"
-      Notifier.notify "Sprockets compiled #{output_filename}"
+      Compat::UI.info "Sprockets compiled #{output_filename}"
+      Compat::UI.notify "Sprockets compiled #{output_filename}"
     rescue ExecJS::ProgramError => ex
-      UI.error "Sprockets failed compiling #{output_filename}"
-      UI.error ex.message
-      Notifier.notify "Sprockets failed compiling #{output_filename}!", priority: 2, image: :failed
+      Compat::UI.error "Sprockets failed compiling #{output_filename}"
+      Compat::UI.error ex.message
+      Compat::UI.notify "Sprockets failed compiling #{output_filename}!", priority: 2, image: :failed
 
       false
     end
