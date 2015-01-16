@@ -16,6 +16,6 @@ end
 #
 group :test do
   gem 'json' if RUBY_VERSION =~ /^1\.8/
-  gem 'rspec'
+  gem 'rspec', '~> 3.1'
   gem 'coveralls', require: false
 end

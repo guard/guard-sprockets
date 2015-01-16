@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'sprockets', '~> 2.0'
 
   s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rspec'
 
   s.files        = Dir.glob('{lib}/**/*') + %w[CHANGELOG.md LICENSE README.md]
   s.require_path = 'lib'
