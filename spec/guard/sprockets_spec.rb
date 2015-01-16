@@ -1,6 +1,13 @@
-require 'spec_helper'
+require 'guard/compat/test/helper'
 
-describe Guard::Sprockets do
+require 'guard/sprockets'
+
+RSpec.describe Guard::Sprockets do
+  before do
+    allow(Guard::Compat::UI).to receive(:info)
+    allow(Guard::Compat::UI).to receive(:error)
+    allow(Guard::Compat::UI).to receive(:notify)
+  end
 
   describe '.initialize' do
     describe 'options' do
@@ -50,7 +57,7 @@ describe Guard::Sprockets do
     end
     after { FileUtils.rm_r('public') }
 
-    it { subject.run_on_changes(['foo']).should be_false }
+    it { subject.run_on_changes(['foo']).should be(false) }
   end
 
 end
