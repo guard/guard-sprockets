@@ -1,11 +1,11 @@
 # Guard::Sprockets
 
-[![Gem Version](https://badge.fury.io/rb/guard-sprockets.png)](http://badge.fury.io/rb/guard-sprockets) [![Build Status](https://travis-ci.org/guard/guard-sprockets.png?branch=master)](https://travis-ci.org/guard/guard-sprockets) [![Dependency Status](https://gemnasium.com/guard/guard-sprockets.png)](https://gemnasium.com/guard/guard-sprockets) [![Code Climate](https://codeclimate.com/github/guard/guard-sprockets.png)](https://codeclimate.com/github/guard/guard-sprockets) [![Coverage Status](https://coveralls.io/repos/guard/guard-sprockets/badge.png?branch=master)](https://coveralls.io/r/guard/guard-sprockets)
+[![Gem Version](https://img.shields.io/gem/v/guard-sprockets.svg?style=flat)](https://rubygems.org/gems/guard-sprockets) [![Build Status](https://travis-ci.org/guard/guard-sprockets.png?branch=master)](https://travis-ci.org/guard/guard-sprockets) [![Dependency Status](https://gemnasium.com/guard/guard-sprockets.png)](https://gemnasium.com/guard/guard-sprockets) [![Code Climate](https://codeclimate.com/github/guard/guard-sprockets.png)](https://codeclimate.com/github/guard/guard-sprockets) [![Test Coverage](https://codeclimate.com/github/guard/guard-sprockets/badges/coverage.svg)](https://codeclimate.com/github/guard/guard-sprockets)
 
 Sprockets guard automatically packages your JavaScript files together when your source files are saved.
 
 * Compatible with Sprockets 2.x (for Sprockets 1.x compatibility, please use Guard::Sprockets 0.1.4 or the `sprockets_1` branch).
-* Tested against Ruby 1.9.3, 2.0.0, Rubinius & JRuby (1.9 mode only).
+* Tested against Ruby 2.0, 2.1, 2.2, Rubinius & JRuby (1.9 mode only).
 
 ## Install
 
